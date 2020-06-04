@@ -4,7 +4,7 @@
 #include "common.h"
 
 class File {
-public:
+   public:
     // Check if the file exists.
     static bool Exists(const string& name);
 

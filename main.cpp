@@ -1,8 +1,9 @@
 #include <string.h>
+
 #include <algorithm>
 
-#include "file.h"
 #include "auto_table.h"
+#include "file.h"
 
 int main(int argc, char* argv[]) {
     if (2 != argc) {

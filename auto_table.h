@@ -1,16 +1,17 @@
 #ifndef _AUTO_TABLE_H_
 #define _AUTO_TABLE_H_
 
-#include "common.h"
-#include <vector>
 #include <map>
+#include <vector>
 
-using std::vector;
+#include "common.h"
+
 using std::map;
+using std::vector;
 
 struct tagVarInfo {
-    string strVarPre;       //变量前缀
-    string strVarType;      //C++变量类型
+    string strVarPre;   //变量前缀
+    string strVarType;  //C++变量类型
 
     tagVarInfo() {}
 
@@ -19,7 +20,7 @@ struct tagVarInfo {
         strVarType = other.strVarType;
     }
 
-    tagVarInfo& operator = (const tagVarInfo& other) {
+    tagVarInfo& operator=(const tagVarInfo& other) {
         if (this == &other)
             return *this;
 
@@ -46,7 +47,7 @@ struct tagRow {
         strRowName = other.strRowName;
         stVarInfo = other.stVarInfo;
     }
-    tagRow& operator = (const tagRow& other) {
+    tagRow& operator=(const tagRow& other) {
         if (this == &other)
             return *this;
 
@@ -64,21 +65,20 @@ struct tagTable {
     vector<tagRow> vecRow;
 };
 
-
 class AutoTable {
-public:
+   public:
     AutoTable() {}
     ~AutoTable() {}
     //strInPut：输入sql建表语句；strOutPutInc：输出数据库操作自动化类头文件;strOutPutSrc：输出数据库操作自动化类源文件,
     void Analysis(const char* szFile);
 
-private:
+   private:
     void Init();
     void AddVarInfo(const char* szRowType, const char* szVarPre, const char* szVarType);
     //过滤每行的所有tab键，并且过滤行首空格键
     int32 SplitStringByEnter(const string& strInput, vector<string>& vecContent);
     int32 GetTableFromVec(vector<string>& vecContent, vector<tagTable>& vecTable);
-    void SplitStringByTab(string& strLine); //过滤tab键
+    void SplitStringByTab(string& strLine);  //过滤tab键
     int32 AnalysisTable(const tagTable& stTable, string& strOutPutInc, string& strOutPutSrc);
 
     void CreateDestruct(const tagTable& stTable, string& strOutPutInc, string& strOutPutSrc);
@@ -96,7 +96,7 @@ private:
     void CreateClassVariables(const tagTable& stTable, string& strOutPutInc, string& strOutPutSrc);
     void CreateIsValid(const tagTable& stTable, string& strOutPutInc, string& strOutPutSrc);
 
-private:
+   private:
     map<string, tagVarInfo> m_mapVarInfo;
 };
 

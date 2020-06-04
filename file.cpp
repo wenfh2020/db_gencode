@@ -1,17 +1,17 @@
+#include "file.h"
+
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "file.h"
-
-bool File::Exists(const string& name) {
+bool File::Exists(const string &name) {
     return access(name.c_str(), F_OK) == 0;
 }
 
-int File::ReadFileToString(const string& name, string* output) {
+int File::ReadFileToString(const string &name, string *output) {
     char buffer[1024];
-    FILE* file = fopen(name.c_str(), "rb");
+    FILE *file = fopen(name.c_str(), "rb");
     if (file == NULL)
         return errno;
 
@@ -27,13 +27,13 @@ int File::ReadFileToString(const string& name, string* output) {
     return 0;
 }
 
-void File::ReadFileToStringOrDie(const string& name, string* output) {
+void File::ReadFileToStringOrDie(const string &name, string *output) {
     if (ReadFileToString(name, output))
         ERRORLOG("Could not read.%s", name.c_str());
 }
 
-int File::WriteStringToFile(const string& contents, const string& name) {
-    FILE* file = fopen(name.c_str(), "wb");
+int File::WriteStringToFile(const string &contents, const string &name) {
+    FILE *file = fopen(name.c_str(), "wb");
     if (file == NULL)
         return errno;
 
@@ -46,8 +46,8 @@ int File::WriteStringToFile(const string& contents, const string& name) {
     return 0;
 }
 
-void File::WriteStringToFileOrDie(const string& contents, const string& name) {
-    FILE* file = fopen(name.c_str(), "wb");
+void File::WriteStringToFileOrDie(const string &contents, const string &name) {
+    FILE *file = fopen(name.c_str(), "wb");
 
     if (NULL != file) {
         ERRORLOG("fail to fopen.name=%s. err msg=", name.c_str(), strerror(errno));
@@ -62,14 +62,16 @@ void File::WriteStringToFileOrDie(const string& contents, const string& name) {
     }
 }
 
-bool File::CreateDir(const string& name, int mode) {
+bool File::CreateDir(const string &name, int mode) {
     return mkdir(name.c_str(), mode) == 0;
 }
 
-bool File::RecursivelyCreateDir(const string& path, int mode) {
-    if (CreateDir(path, mode)) return true;
+bool File::RecursivelyCreateDir(const string &path, int mode) {
+    if (CreateDir(path, mode))
+        return true;
 
-    if (Exists(path)) return false;
+    if (Exists(path))
+        return false;
 
     // Try creating the parent.
     string::size_type slashpos = path.find_last_of('/');

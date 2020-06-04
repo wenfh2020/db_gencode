@@ -1,6 +1,6 @@
-CXXFLAGS=-I. -g -DDEBUG -Wall -std=c++0x
-OBJS= common.o auto_table.o file.o main.o
 CXX=g++
+CXXFLAGS=-I. -g -DDEBUG -Wall -std=c++0x
+OBJS=common.o auto_table.o file.o main.o
 
 EXE=db_gencode
 
