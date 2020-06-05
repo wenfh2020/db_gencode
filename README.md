@@ -1,5 +1,6 @@
-# db_gencode
-### gencode from sql script to cpp
+## db_gencode
+
+gencode from sql script to cpp
 
 ```shell
 make clean; make;
